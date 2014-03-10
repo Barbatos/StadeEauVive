@@ -1,11 +1,19 @@
 #!/usr/bin/python
 
+import time
+from Gui import *
+
 class StadeEauVive():
 
 	MODE_INITIATION = 1
 	MODE_ENTRAINEMENT = 2
 	MODE_COMPETITION = 3
 	mode = False
+	gui = Gui()
+	niveauReserve = 1
+
+	def affichage(self):
+		self.gui.afficherReserve(self.niveauReserve)
 
 	def menu(self):
 		print '''
@@ -28,10 +36,14 @@ class StadeEauVive():
 			else:
 				print "Ce mode est invalide."
 
-		self.demarrerSimulation()
+		self.simulation()
 
-	def demarrerSimulation(self):
+	def simulation(self):
 		print "Debut de la simulation."
+
+		while 1:
+			self.affichage()
+			time.sleep(2)
 
 	def __init__(self):
 		self.menu()
