@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import time
+import threading
 from Gui import *
 
 class StadeEauVive():
@@ -11,18 +12,44 @@ class StadeEauVive():
 	mode = False
 	gui = Gui()
 	niveauReserve = 1
+	vitesse = 15
 
 	def affichage(self):
 		self.gui.afficherReserve(self.niveauReserve)
 
+	def lireEntree(self):
+		while 1:
+			entree = raw_input("")
+			if entree:
+				if entree == "-":
+					self.vitesse /= 2
+
+					if self.vitesse < 1:
+						self.vitesse = 1
+
+					print "Vitesse: %s minute(s) par seconde" % self.vitesse
+
+				if entree == "+":
+					self.vitesse *= 2
+
+					if self.vitesse > 60:
+						self.vitesse = 60
+
+					print "Vitesse: %s minute(s) par seconde" % self.vitesse
+
+
 	def menu(self):
 		print '''
 	Bienvenue sur le simulateur du Stade d'Eau Vive.
+
+	Vitesse actuelle: %s mins par seconde.
+	Pour changer la vitesse, utilisez + et -
+
 	Veuillez choisir le mode de fonctionnement :
 		1 - Initiation
 		2 - Entrainement
 		3 - Competition
-		'''
+		''' % self.vitesse
 
 		while self.mode == False:
 			choix = raw_input("Mode de fonctionnement ? ")
@@ -40,6 +67,10 @@ class StadeEauVive():
 
 	def simulation(self):
 		print "Debut de la simulation."
+
+		entree = threading.Thread(target=self.lireEntree)
+		entree.daemon = True
+		entree.start()
 
 		while 1:
 			self.affichage()
