@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="12.2">
+  <zoom_level>8</zoom_level>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>408</x>
+      <y>0</y>
+      <w>40</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;104;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.InitialState</type>
+    <coordinates>
+      <x>424</x>
+      <y>8</y>
+      <w>16</w>
+      <h>16</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>624</x>
+      <y>128</y>
+      <w>112</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>La séance débute</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.EER_Rel_Diamond</type>
+    <coordinates>
+      <x>352</x>
+      <y>104</y>
+      <w>160</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Y'a t-il assez d'eau
+pour que la séance
+démarre ?</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>480</x>
+      <y>104</y>
+      <w>160</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+oui
+</panel_attributes>
+    <additional_attributes>144;40;24;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>224</x>
+      <y>104</y>
+      <w>152</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+non
+</panel_attributes>
+    <additional_attributes>24;40;136;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>144</x>
+      <y>128</y>
+      <w>104</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Séance annulée</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>648</x>
+      <y>144</y>
+      <w>40</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;96;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>608</x>
+      <y>240</y>
+      <w>128</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>La vanne OmniFlot
+commence à s'abaisser</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>376</x>
+      <y>240</y>
+      <w>152</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>La mer est à 0 NGF ou
+Il n'y a plus d'eau dans la
+réserve</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.EER_Rel_Diamond</type>
+    <coordinates>
+      <x>368</x>
+      <y>368</y>
+      <w>160</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>Y'a t-il encore
+des kayakistes
+sur la piste ?</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>504</x>
+      <y>240</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;24;104;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>424</x>
+      <y>272</y>
+      <w>40</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>24;96;24;24</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>496</x>
+      <y>368</y>
+      <w>160</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+oui
+</panel_attributes>
+    <additional_attributes>144;40;24;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>240</x>
+      <y>368</y>
+      <w>152</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+non
+</panel_attributes>
+    <additional_attributes>32;96;32;40;136;40</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>640</x>
+      <y>384</y>
+      <w>152</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Le Gérant de la base
+affale les vannes Omniflots
+et Stockvide</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>224</x>
+      <y>464</y>
+      <w>120</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>Le gérant attend que
+tous les kayakistes
+aient quittés la piste</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>320</x>
+      <y>408</y>
+      <w>392</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+
+</panel_attributes>
+    <additional_attributes>376;24;376;80;24;80</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.custom.State</type>
+    <coordinates>
+      <x>792</x>
+      <y>520</y>
+      <w>144</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>La réserve est vide, les
+vannes affaissées et prête 
+pour un nouvel usage</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>768</x>
+      <y>384</y>
+      <w>128</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>112;136;112;24;24;24</additional_attributes>
+  </element>
+</diagram>
