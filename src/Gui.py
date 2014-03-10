@@ -1,34 +1,55 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import string
 
 class Gui():
 
+    draw = ""
+
     def __init__(self):
         print "init"
 
     def afficherReserve(self, niveauReserve):
-        reserve = '''
-        |                                         |
-        |                                         |
-        |                                         |
-        |                                         |
-        |                                         |
-        |                                         |
-        |                                         |
-        |_________________________________________|
+        self.draw = '''
+        |                                         
+        |                                         
+        |                                         
+        |                                         
+        |                                         
+        |                                         
+        |                                         
+        |_________________________________________
         '''
 
-        tab = string.split(reserve, '\n')
+        tab = string.split(self.draw, '\n')
 
         if niveauReserve > 0:
-            tab[-(niveauReserve+2)] = "        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|"
+            tab[-(niveauReserve + 2)] = "        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
-        reserve = string.join(tab, '\n')
-        print reserve
+        self.draw = string.join(tab, '\n')
 
-    def afficherEauReserve(self):
-        print "a"
-        #print '''
-        #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        #'''
+        self.afficherVanneOmniflot()
+
+    def afficherVanneOmniflot(self):
+        vanne = '''
+       °
+      / \\
+     /   \\
+    /     \\
+   /       \\
+  /         \\
+ /           \\
+/             °
+        '''
+
+        tabReserve = string.split(self.draw, '\n')
+        tabVanne = string.split(vanne, '\n')
+
+        for s in range(0, len(tabReserve)):
+            tabReserve[s] += tabVanne[s]
+
+        self.draw = string.join(tabReserve, '\n')
+
+        print self.draw
+
