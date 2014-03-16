@@ -14,6 +14,7 @@ class StadeEauVive():
 	gui = Gui()
 	niveauReserve = 1
 	vitesse = 15
+	coefficientMaree = 60
 
 	def affichage(self):
 		self.gui.afficherReserve(self.niveauReserve)

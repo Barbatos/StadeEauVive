@@ -11,7 +11,7 @@ class Gui():
         print "init"
 
     def afficherReserve(self, niveauReserve):
-        self.draw = '''
+        self.draw = '''                         reserve
         |                                         
         |                                         
         |                                         
@@ -32,7 +32,7 @@ class Gui():
         self.afficherVanneOmniflot()
 
     def afficherVanneOmniflot(self):
-        vanne = '''
+        vanne = '''                   vanne omniflot
        °
       / \\
      /   \\
@@ -51,5 +51,26 @@ class Gui():
 
         self.draw = string.join(tabReserve, '\n')
 
+        self.afficherStade()
+
+    def afficherStade(self):
+        stade = '''                    stade 
+
+
+
+
+___ 
+   \\
+    \\___
+    
+        '''
+
+        tab = string.split(self.draw, '\n')
+        tabStade = string.split(stade, '\n')
+
+        for s in range(0, len(tab)):
+            tab[s] += tabStade[s]
+
+        self.draw = string.join(tab, '\n')
         print self.draw
 
