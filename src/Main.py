@@ -12,9 +12,11 @@ class StadeEauVive():
 	MODE_COMPETITION = 3
 
 	NIVEAU_VANNES_MAX = 3.5
-	
+
 	mode = False
 	gui = Gui()
+
+	attenteActionGerant = False
 
 	seanceOuverte = False
 	mareeDescendante = True
@@ -88,6 +90,7 @@ class StadeEauVive():
 
 		if self.phase == 9:
 			self.seanceOuverte = False
+			self.attenteActionGerant = True
 			self.niveauVanneOmniflot = self.NIVEAU_VANNES_MAX
 
 	def calculerDebit(self):
@@ -109,7 +112,18 @@ class StadeEauVive():
 	def calculerPhase(self):
 		self.phase = round(self.tempsEcoule / 60) % 12
 
+	def actionGerant(self):
+		if not self.attenteActionGerant:
+			return
+
+		print "En attente d'une action de votre part. Appuyez sur une touche pour continuer."
+		while self.attenteActionGerant:
+			entree = raw_input("")
+			if entree:
+				self.attenteActionGerant = False
+
 	def affichage(self):
+
 		#self.gui.afficherReserve(self.niveauReserve)
 		print "====================================="
 		print "== SEANCE OUVERTE: %s" % self.seanceOuverte
@@ -119,8 +133,14 @@ class StadeEauVive():
 		print "niveau mer max: %f" % self.niveauMerMax
 		print "niveau réserve: %f" % self.niveauReserve
 		print "niveau réserve max: %f" % self.niveauReserveMax
-		print "niveau vanne omniflot: %f" % self.niveauVanneOmniflot
-		print "niveau vanne stockvide: %f" % self.niveauVanneStockvide
+		if self.niveauVanneOmniflot == 3.5:
+			print "vanne omniflot fermée !"
+		else:
+			print "niveau vanne omniflot: %f" % self.niveauVanneOmniflot
+		if self.niveauVanneStockvide == 3.5:
+			print "vanne stockvide fermée !"
+		else:
+			print "niveau vanne stockvide: %f" % self.niveauVanneStockvide
 		print "coeff maree: %f" % self.coefficientMaree
 		print "====================================="
 
@@ -199,8 +219,10 @@ class StadeEauVive():
 			self.calculerNiveauMer()
 			self.calculerNiveauVannes()
 
-
 			self.affichage()
+
+			self.actionGerant()
+
 			time.sleep(1.5)
 
 	def __init__(self):
