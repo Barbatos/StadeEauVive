@@ -1,0 +1,13 @@
+kayak
+canoë
+raft
+mini-raft
+techniciens
+mer
+lune
+temps
+
+Acteurs principaux:
+	Utilisateurs
+	Techniciens
+	Lune
