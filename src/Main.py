@@ -12,12 +12,55 @@ class StadeEauVive():
 	MODE_COMPETITION = 3
 	mode = False
 	gui = Gui()
-	niveauReserve = 1
+
+
+	niveauReserve = 1 # en metres NGF
+	niveauReserveMax = 1 # en metres NGF
+
+	niveauVanneOmniflot = 1 # en metres NGF
+	niveauVanneStockvide = 1 # en metres NGF
+
+	niveauMerMin = 1 # en niveau hydrographique
+	niveauMer = 1 # en niveau hydrographique
+	niveauMerMax = 1 # en niveau hydrographique
+
+	coefficientMaree = 0
+
 	vitesse = 15
-	coefficientMaree = 60
+
+	def calculerNiveauMerMax(self):
+		if self.coefficientMaree == 45:
+			self.niveauMerMax = 7
+			self.niveauMerMin = 3
+		elif self.coefficientMaree == 60:
+			self.niveauMerMax = 8
+			self.niveauMerMin = 2
+		else:
+			self.niveauMerMax = 9
+			self.niveauMerMin = 1
+
+	#def calculerNiveauMer(self):
+
+
+	def calculerNiveauReserveMax(self):
+		self.niveauReserveMax = self.niveauMerMax - 5
+
+		if self.niveauReserveMax > 3.5:
+			self.niveauReserveMax = 3.5
+
 
 	def affichage(self):
-		self.gui.afficherReserve(self.niveauReserve)
+		#self.gui.afficherReserve(self.niveauReserve)
+		print "====================================="
+		print "== SEANCE: "
+		print "niveau mer: %d" % self.niveauMer
+		print "niveau mer max: %d" % self.niveauMerMax
+		print "niveau réserve: %d" % self.niveauReserve
+		print "niveau réserve max: %d" % self.niveauReserveMax
+		print "niveau vanne omniflot: %d" % self.niveauVanneOmniflot
+		print "niveau vanne stockvide: %d" % self.niveauVanneStockvide
+		print "coeff maree: %d" % self.coefficientMaree
+		print "====================================="
 
 	def lireEntree(self):
 		while 1:
@@ -38,6 +81,8 @@ class StadeEauVive():
 						self.vitesse = 60
 
 					print "Vitesse: %s minute(s) par seconde" % self.vitesse
+
+		time.sleep(0.1)
 
 
 	def menu(self):
@@ -65,6 +110,13 @@ class StadeEauVive():
 			else:
 				print "Ce mode est invalide."
 
+		print "Veuillez choisir un coefficient de maree: "
+		
+		while choix != "45" and choix != "60" and choix != "95":
+			choix = raw_input("Coefficient de maree ? (45, 60, 95)")
+		
+		self.coefficientMaree = int(choix)
+
 		self.simulation()
 
 	def simulation(self):
@@ -73,6 +125,9 @@ class StadeEauVive():
 		entree = threading.Thread(target=self.lireEntree)
 		entree.daemon = True
 		entree.start()
+
+		self.calculerNiveauMerMax()
+		self.calculerNiveauReserveMax()
 
 		while 1:
 			self.affichage()
