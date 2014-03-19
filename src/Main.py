@@ -13,34 +13,53 @@ class StadeEauVive():
 	mode = False
 	gui = Gui()
 
+	mareeDescendante = True
 
-	niveauReserve = 1 # en metres NGF
-	niveauReserveMax = 1 # en metres NGF
+	tempsEcoule = 0
+	phase = 0
 
-	niveauVanneOmniflot = 1 # en metres NGF
-	niveauVanneStockvide = 1 # en metres NGF
+	niveauReserve = 1. # en metres NGF
+	niveauReserveMax = 1. # en metres NGF
 
-	niveauMerMin = 1 # en niveau hydrographique
-	niveauMer = 1 # en niveau hydrographique
-	niveauMerMax = 1 # en niveau hydrographique
+	niveauVanneOmniflot = 1. # en metres NGF
+	niveauVanneStockvide = 1. # en metres NGF
 
-	coefficientMaree = 0
+	niveauMerMin = 1. # en niveau hydrographique
+	niveauMer = 1. # en niveau hydrographique
+	niveauMerMax = 1. # en niveau hydrographique
 
-	vitesse = 15
+	coefficientMaree = 0.
+
+	vitesse = 60
 
 	def calculerNiveauMerMax(self):
 		if self.coefficientMaree == 45:
-			self.niveauMerMax = 7
-			self.niveauMerMin = 3
+			self.niveauMerMax = 7.
+			self.niveauMer = 7.
+			self.niveauMerMin = 3.
 		elif self.coefficientMaree == 60:
-			self.niveauMerMax = 8
-			self.niveauMerMin = 2
+			self.niveauMerMax = 8.
+			self.niveauMer = 8.
+			self.niveauMerMin = 2.
 		else:
-			self.niveauMerMax = 9
-			self.niveauMerMin = 1
+			self.niveauMerMax = 9.
+			self.niveauMer = 9.
+			self.niveauMerMin = 1.
 
-	#def calculerNiveauMer(self):
+	def calculerNiveauMer(self):
+		c = ((self.niveauMerMax - self.niveauMerMin) / 360) * self.vitesse
 
+		if self.mareeDescendante:
+			self.niveauMer -= c
+		else:
+			self.niveauMer += c
+
+		if self.phase == 0:
+			self.mareeDescendante = True
+			self.niveauMer = self.niveauMerMax
+		if self.phase == 6:
+			self.mareeDescendante = False
+			self.niveauMer = self.niveauMerMin
 
 	def calculerNiveauReserveMax(self):
 		self.niveauReserveMax = self.niveauMerMax - 5
@@ -48,18 +67,20 @@ class StadeEauVive():
 		if self.niveauReserveMax > 3.5:
 			self.niveauReserveMax = 3.5
 
+	def calculerPhase(self):
+		self.phase = round(self.tempsEcoule / 60) % 12
 
 	def affichage(self):
 		#self.gui.afficherReserve(self.niveauReserve)
 		print "====================================="
-		print "== SEANCE: "
-		print "niveau mer: %d" % self.niveauMer
-		print "niveau mer max: %d" % self.niveauMerMax
-		print "niveau réserve: %d" % self.niveauReserve
-		print "niveau réserve max: %d" % self.niveauReserveMax
-		print "niveau vanne omniflot: %d" % self.niveauVanneOmniflot
-		print "niveau vanne stockvide: %d" % self.niveauVanneStockvide
-		print "coeff maree: %d" % self.coefficientMaree
+		print "== PHASE: PM+%d" % self.phase
+		print "niveau mer: %f" % self.niveauMer
+		print "niveau mer max: %f" % self.niveauMerMax
+		print "niveau réserve: %f" % self.niveauReserve
+		print "niveau réserve max: %f" % self.niveauReserveMax
+		print "niveau vanne omniflot: %f" % self.niveauVanneOmniflot
+		print "niveau vanne stockvide: %f" % self.niveauVanneStockvide
+		print "coeff maree: %f" % self.coefficientMaree
 		print "====================================="
 
 	def lireEntree(self):
@@ -130,8 +151,14 @@ class StadeEauVive():
 		self.calculerNiveauReserveMax()
 
 		while 1:
+			self.tempsEcoule += self.vitesse
+
+			self.calculerPhase()
+			self.calculerNiveauMer()
+
+
 			self.affichage()
-			time.sleep(2)
+			time.sleep(1.5)
 
 	def __init__(self):
 		self.menu()
