@@ -10,14 +10,19 @@ class StadeEauVive():
 	MODE_INITIATION = 1
 	MODE_ENTRAINEMENT = 2
 	MODE_COMPETITION = 3
+
+	NIVEAU_VANNES_MAX = 3.5
+	
 	mode = False
 	gui = Gui()
 
+	seanceOuverte = False
 	mareeDescendante = True
 
 	tempsEcoule = 0
 	phase = 0
 
+	volumeEauReserve = 0
 	niveauReserve = 1. # en metres NGF
 	niveauReserveMax = 1. # en metres NGF
 
@@ -31,6 +36,7 @@ class StadeEauVive():
 	coefficientMaree = 0.
 
 	vitesse = 60
+	debit = 0
 
 	def calculerNiveauMerMax(self):
 		if self.coefficientMaree == 45:
@@ -61,11 +67,44 @@ class StadeEauVive():
 			self.mareeDescendante = False
 			self.niveauMer = self.niveauMerMin
 
+	def calculerNiveauVannes(self):
+		if self.phase >= 0 and self.phase <= 3:
+			self.seanceOuverte = False
+			self.niveauVanneOmniflot = self.NIVEAU_VANNES_MAX
+			self.niveauVanneStockvide = self.NIVEAU_VANNES_MAX
+
+		if self.phase > 3 and self.phase < 9:
+			self.seanceOuverte = True
+
+			if self.mode == self.MODE_INITIATION:
+				self.niveauVanneOmniflot -= 0.001575 * self.vitesse
+			elif self.mode == self.MODE_ENTRAINEMENT:
+				self.niveauVanneOmniflot -= 0.004 * self.vitesse
+			else:
+				self.niveauVanneOmniflot -= 0.008 * self.vitesse
+
+			if self.niveauVanneOmniflot < 1.5:
+				self.niveauVanneOmniflot = 1.5
+
+		if self.phase == 9:
+			self.seanceOuverte = False
+			self.niveauVanneOmniflot = self.NIVEAU_VANNES_MAX
+
+	def calculerDebit(self):
+		if self.mode == self.MODE_INITIATION:
+			self.debit = 4
+		elif self.mode == self.MODE_ENTRAINEMENT:
+			self.debit = 9
+		else:
+			self.debit = 14
+
 	def calculerNiveauReserveMax(self):
 		self.niveauReserveMax = self.niveauMerMax - 5
 
 		if self.niveauReserveMax > 3.5:
 			self.niveauReserveMax = 3.5
+
+		#self.volumeEauReserve = 
 
 	def calculerPhase(self):
 		self.phase = round(self.tempsEcoule / 60) % 12
@@ -73,7 +112,9 @@ class StadeEauVive():
 	def affichage(self):
 		#self.gui.afficherReserve(self.niveauReserve)
 		print "====================================="
+		print "== SEANCE OUVERTE: %s" % self.seanceOuverte
 		print "== PHASE: PM+%d" % self.phase
+		print "debit: %dm3/s" % self.debit
 		print "niveau mer: %f" % self.niveauMer
 		print "niveau mer max: %f" % self.niveauMerMax
 		print "niveau réserve: %f" % self.niveauReserve
@@ -120,7 +161,7 @@ class StadeEauVive():
 		''' % self.vitesse
 
 		while self.mode == False:
-			choix = raw_input("Mode de fonctionnement ? ")
+			choix = raw_input("Mode de fonctionnement ?: ")
 			
 			if choix == "1":
 				self.mode = self.MODE_INITIATION
@@ -134,7 +175,7 @@ class StadeEauVive():
 		print "Veuillez choisir un coefficient de maree: "
 		
 		while choix != "45" and choix != "60" and choix != "95":
-			choix = raw_input("Coefficient de maree ? (45, 60, 95)")
+			choix = raw_input("Coefficient de maree ? (45, 60, 95): ")
 		
 		self.coefficientMaree = int(choix)
 
@@ -149,12 +190,14 @@ class StadeEauVive():
 
 		self.calculerNiveauMerMax()
 		self.calculerNiveauReserveMax()
+		self.calculerDebit()
 
 		while 1:
 			self.tempsEcoule += self.vitesse
 
 			self.calculerPhase()
 			self.calculerNiveauMer()
+			self.calculerNiveauVannes()
 
 
 			self.affichage()
