@@ -12,6 +12,8 @@ class StadeEauVive():
 	MODE_COMPETITION = 3
 
 	NIVEAU_VANNES_MAX = 3.5
+	NIVEAU_MIN_OMNIFLOT = 1.5
+	NIVEAU_MIN_STOCKVIDE = 0
 
 	mode = False
 	gui = Gui()
@@ -93,6 +95,10 @@ class StadeEauVive():
 			self.attenteActionGerant = True
 			self.niveauVanneOmniflot = self.NIVEAU_VANNES_MAX
 
+		if self.phase == 10:
+			self.niveauVanneOmniflot = self.NIVEAU_MIN_OMNIFLOT
+			self.niveauVanneStockvide = self.NIVEAU_MIN_STOCKVIDE
+
 	def calculerDebit(self):
 		if self.mode == self.MODE_INITIATION:
 			self.debit = 4
@@ -133,14 +139,21 @@ class StadeEauVive():
 		print "niveau mer max: %f" % self.niveauMerMax
 		print "niveau réserve: %f" % self.niveauReserve
 		print "niveau réserve max: %f" % self.niveauReserveMax
-		if self.niveauVanneOmniflot == 3.5:
+
+		if self.niveauVanneOmniflot == self.NIVEAU_VANNES_MAX:
 			print "vanne omniflot fermée !"
+		elif self.niveauVanneOmniflot == self.NIVEAU_MIN_OMNIFLOT:
+			print "vanne omniflot affalée !"
 		else:
 			print "niveau vanne omniflot: %f" % self.niveauVanneOmniflot
-		if self.niveauVanneStockvide == 3.5:
+
+		if self.niveauVanneStockvide == self.NIVEAU_VANNES_MAX:
 			print "vanne stockvide fermée !"
+		elif self.niveauVanneStockvide == self.NIVEAU_MIN_STOCKVIDE:
+			print "vanne stockvide affalée !"
 		else:
 			print "niveau vanne stockvide: %f" % self.niveauVanneStockvide
+			
 		print "coeff maree: %f" % self.coefficientMaree
 		print "====================================="
 
