@@ -106,8 +106,6 @@ class StadeEauVive():
 			if not self.actionGerantEffectuee:
 				self.attenteActionGerant = True
 
-			self.niveauVanneOmniflot = self.NIVEAU_VANNES_MAX 
-
 	def calculerDebit(self):
 		if self.mode == self.MODE_INITIATION:
 			self.debit = 4
