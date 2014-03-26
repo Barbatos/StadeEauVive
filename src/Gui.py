@@ -60,13 +60,13 @@ class Gui():
 |
 |
 |
-|
-|
+
+
         '''
 
         if self.phase > 9 and self.phase < 12:
             niveauVanne = 9
-        elif self.phase >= 1 and self.phase <= 3:
+        elif self.phase >= 0 and self.phase <= 3:
             niveauVanne = 1
         else:
             niveauVanne = niveauReserve
@@ -82,7 +82,8 @@ class Gui():
 
         self.draw = string.join(tabReserve, '\n')
 
-        self.afficherStade()
+        print self.draw
+        #self.afficherStade()
 
     def afficherStade(self):
         stade = '''                    stade 

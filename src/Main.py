@@ -3,6 +3,7 @@
 
 import time
 import threading
+import os
 from Gui import *
 
 class StadeEauVive():
@@ -160,6 +161,8 @@ class StadeEauVive():
 
 	def affichage(self):
 
+		os.system('cls' if os.name == 'nt' else 'clear')
+
 		print "====================================="
 
 		if self.seanceOuverte:
@@ -192,7 +195,7 @@ class StadeEauVive():
 		print "====================================="
 
 		self.gui.afficherReserve(self.niveauReserve, self.niveauVanneOmniflot, self.phase)
-		
+
 	def lireEntree(self):
 		while 1:
 
