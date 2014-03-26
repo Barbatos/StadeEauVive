@@ -19,13 +19,27 @@ class Gui():
         |                                         
         |                                         
         |                                         
+        |                                         
+        |                                         
         |_________________________________________
+
+
         '''
 
         tab = string.split(self.draw, '\n')
 
+        niveauMax = 35
+        
+        niveau = int(round( (niveauMax - (niveauReserve * 10)) / 2))
+
+        if niveau <= 0:
+            niveau = 1
+
+        if niveau >= 9:
+            niveau = 9
+
         if niveauReserve > 0:
-            tab[-(niveauReserve + 2)] = "        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+            tab[niveau] = "        |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
 
         self.draw = string.join(tab, '\n')
 
@@ -33,14 +47,18 @@ class Gui():
 
     def afficherVanneOmniflot(self):
         vanne = '''                   vanne omniflot
-       °
-      / \\
-     /   \\
-    /     \\
-   /       \\
-  /         \\
- /           \\
-/             °
+           °
+          / \\
+         /   \\
+        /     \\
+       /       \\
+      /         \\
+     /           \\
+    /             \\
+   /               \\
+  /                  °
+
+
         '''
 
         tabReserve = string.split(self.draw, '\n')
@@ -55,6 +73,10 @@ class Gui():
 
     def afficherStade(self):
         stade = '''                    stade 
+
+
+
+
 
 
 

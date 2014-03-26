@@ -160,7 +160,8 @@ class StadeEauVive():
 
 	def affichage(self):
 
-		#self.gui.afficherReserve(self.niveauReserve)
+		self.gui.afficherReserve(self.niveauReserve)
+		
 		print "====================================="
 
 		if self.seanceOuverte:
