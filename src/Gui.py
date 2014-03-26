@@ -6,11 +6,13 @@ import string
 class Gui():
 
     draw = ""
+    phase = 0
 
     def __init__(self):
         print "init"
 
-    def afficherReserve(self, niveauReserve):
+    def afficherReserve(self, niveauReserve, niveauVanneOmniflot, phase):
+        self.phase = phase
         self.draw = '''                         reserve
         |                                         
         |                                         
@@ -29,7 +31,7 @@ class Gui():
         tab = string.split(self.draw, '\n')
 
         niveauMax = 35
-        
+
         niveau = int(round( (niveauMax - (niveauReserve * 10)) / 2))
 
         if niveau <= 0:
@@ -43,29 +45,40 @@ class Gui():
 
         self.draw = string.join(tab, '\n')
 
-        self.afficherVanneOmniflot()
+        self.afficherVanneOmniflot(niveau, niveauVanneOmniflot)
 
-    def afficherVanneOmniflot(self):
-        vanne = '''                   vanne omniflot
-           °
-          / \\
-         /   \\
-        /     \\
-       /       \\
-      /         \\
-     /           \\
-    /             \\
-   /               \\
-  /                  °
+    def afficherVanneOmniflot(self, niveauReserve, niveauVanneOmniflot):
 
-
+        vanne = '''
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
         '''
 
+        if self.phase > 9 and self.phase < 12:
+            niveauVanne = 9
+        elif self.phase >= 1 and self.phase <= 3:
+            niveauVanne = 1
+        else:
+            niveauVanne = niveauReserve
+
+        niveauVanneMax = 9
+        
         tabReserve = string.split(self.draw, '\n')
         tabVanne = string.split(vanne, '\n')
 
         for s in range(0, len(tabReserve)):
-            tabReserve[s] += tabVanne[s]
+            if s >= niveauVanne:
+                tabReserve[s] += tabVanne[s]
 
         self.draw = string.join(tabReserve, '\n')
 

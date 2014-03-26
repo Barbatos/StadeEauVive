@@ -160,8 +160,6 @@ class StadeEauVive():
 
 	def affichage(self):
 
-		self.gui.afficherReserve(self.niveauReserve)
-		
 		print "====================================="
 
 		if self.seanceOuverte:
@@ -193,6 +191,8 @@ class StadeEauVive():
 		print "coeff marée: %f" % self.coefficientMaree
 		print "====================================="
 
+		self.gui.afficherReserve(self.niveauReserve, self.niveauVanneOmniflot, self.phase)
+		
 	def lireEntree(self):
 		while 1:
 
