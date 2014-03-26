@@ -44,6 +44,8 @@ class StadeEauVive():
 	vitesse = 60
 	debit = 0
 
+	clearAffichage = 'n'
+
 	def calculerNiveauMerMax(self):
 		if self.coefficientMaree == 45:
 			self.niveauMerMax = 7.
@@ -161,7 +163,8 @@ class StadeEauVive():
 
 	def affichage(self):
 
-		os.system('cls' if os.name == 'nt' else 'clear')
+		if self.clearAffichage == 'o':
+			os.system('cls' if os.name == 'nt' else 'clear')
 
 		print "====================================="
 
@@ -259,6 +262,12 @@ class StadeEauVive():
 			vit = raw_input("Vitesse ? (entre 1 et 60): ")
 
 		self.vitesse = int(vit) 
+
+		print "Voulez-vous clear l'affichage à chaque tour ?"
+		while choix != "o" and choix != "n":
+			choix = raw_input("Clear l'affichage ? (o, n): ")
+
+		self.clearAffichage = choix 
 
 		self.simulation()
 
